@@ -535,8 +535,9 @@ MonoBehaviour:
   textureAndDisplaceShader: {fileID: 4800000, guid: a432aa3080f7d0f44aa0c84726386a08, type: 3}
   drawStripShader: {fileID: 4800000, guid: b6f3c11996c850a41a359ad5411f1a16, type: 3}
   initialTexture: {fileID: 2800000, guid: e0fa1dbc0b1bfd9448c36e7053e39e86, type: 3}
-  depthFactor: -1
-  numStrips: 12
+  numVerticalTiles: 1
+  numStrips: 6
+  depthFactor: -0.5
 --- !u!1001 &1097862218
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -781,7 +782,7 @@ Transform:
   m_GameObject: {fileID: 1560351273}
   serializedVersion: 2
   m_LocalRotation: {x: 0.6017764, y: 0.37130204, z: -0.37130204, w: 0.6017764}
-  m_LocalPosition: {x: 0.67, y: 2.48, z: 0.05}
+  m_LocalPosition: {x: 0.8, y: 2.48, z: 0.11}
   m_LocalScale: {x: 0.97, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []

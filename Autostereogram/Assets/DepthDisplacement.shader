@@ -2,16 +2,12 @@ Shader "Custom/DepthDisplacement"
 {
     Properties
     {
-
         _Strip ("Previous Strip", 2D) = "white" {} 
         _CameraView ("Camera input", 2D) = "white" {}
         _StripWidth ("Strip Width", Float) = 1.0   
         _ScreenWidth ("Screen Width", Float) = 1920
-        _ScreenHeight ("Screen Height", Float) = 1080
         _DepthFactor ("Depth Factor", Float) = 1.0   
         _OffsetX ("Horizontal Offset", Float) = 0.0  
-        _numStrips ("Number of Strips", Float) = 0.0
-        _CurrentStrip ("Current Strip", Float) = 0.0 
     }
 
     SubShader
@@ -31,10 +27,7 @@ Shader "Custom/DepthDisplacement"
             float _DepthFactor;
             float _StripWidth;
             float _ScreenWidth;
-            float _ScreenHeight;
             float _OffsetX;
-            float _numStrips;
-            float _CurrentStrip;
 
             struct v2f
             {
@@ -67,10 +60,8 @@ Shader "Custom/DepthDisplacement"
                 float displacement = depth * _DepthFactor;
 
                 uv.x -= displacement;
-
                 uv.x = frac(uv.x);
 
-                // Sample the strip texture
                 fixed4 col = tex2D(_Strip, uv);
                 
                 // Debugging modes

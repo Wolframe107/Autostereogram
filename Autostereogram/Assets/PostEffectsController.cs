@@ -4,23 +4,70 @@ using UnityEngine;
 
 [ExecuteInEditMode]
 public class PostEffectsController : MonoBehaviour
-{
+{   
+    [Tooltip("Shader used to displace the texture")]
     public Shader textureAndDisplaceShader;
+
+    [Tooltip("Shader used draw strip to screen")]
     public Shader drawStripShader;
+
     private Material displacementMaterial;
     private Material drawStripMaterial;
 
+    [Tooltip("The base texture for the first strip.")]
     public Texture2D initialTexture;   // The base texture for the first strip
-    public float depthFactor = 1.0f; // Controls displacement strength
+
+    [Tooltip("Number of vertical tiles to draw.")]
+    public int numVerticalTiles = 1;   // Number of vertical tiles to draw
+
+    [Tooltip("Total number of strips to draw.")]
     public int numStrips = 1;        // Total number of strips to draw
 
-    //private RenderTexture tempTexture;
-    private RenderTexture[] stripTextures;
+    [Tooltip("Controls displacement strength.")]
+    public float depthFactor = 1.0f; // Controls displacement strength
+
+    private Texture2D stripTexture;
 
     void Start()
     {
         Camera.main.depthTextureMode = DepthTextureMode.Depth;
 
+    }
+
+    private Texture2D CreateStripTexture(int width, int height)
+    {
+        // Create a new texture with the intended width and height
+        Texture2D texture = new Texture2D(width, height, initialTexture.format, false);
+
+        // Calculate the scale factors
+        float widthScale = (float)width / initialTexture.width;
+        float heightScale = (float)height / (initialTexture.height * numVerticalTiles);
+
+        // Create an array to hold the colors
+        Color[] colors = new Color[width * height];
+
+        // Loop through each pixel in the new texture
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                // Calculate the corresponding pixel in the initial texture
+                int initialX = Mathf.FloorToInt(x / widthScale);
+                int initialY = Mathf.FloorToInt((y % (initialTexture.height * numVerticalTiles)) / heightScale);
+
+                // Get the color from the initial texture
+                Color color = initialTexture.GetPixel(initialX, initialY);
+
+                // Set the color in the new texture
+                colors[y * width + x] = color;
+            }
+        }
+
+        // Set the pixels and apply the changes
+        texture.SetPixels(colors);
+        texture.Apply();
+
+        return texture;
     }
 
     void OnRenderImage(RenderTexture src, RenderTexture dest)
@@ -38,44 +85,30 @@ public class PostEffectsController : MonoBehaviour
 
         int stripWidth = src.width / numStrips;
 
-        Debug.Log("Strip width: " + stripWidth);
+        //stripTexture = CreateStripTexture(stripWidth, src.height);
+        stripTexture = initialTexture;
 
         RenderTexture previousTexture = RenderTexture.GetTemporary(stripWidth, src.height);
+        RenderTexture tempTexture = RenderTexture.GetTemporary(stripWidth, src.height);
 
         // Initialize the first strip with the initial texture
-        /*
-        Graphics.Blit(initialTexture, previousTexture);
+        Graphics.Blit(stripTexture, previousTexture);
 
-        drawStripMaterial.SetTexture("_Strip", previousTexture);
-        drawStripMaterial.SetFloat("_StripWidth", stripWidth);
-        drawStripMaterial.SetFloat("_ScreenWidth", src.width);
-        drawStripMaterial.SetFloat("_OffsetX", 0.0f);
+        //Debug.Log("Screensize is: " + src.width);
+        //Debug.Log("Strip width: " + stripWidth);
 
-        Graphics.Blit(previousTexture, dest, drawStripMaterial);
-
-        drawStripMaterial.SetFloat("_OffsetX", 0.666f);
-        Graphics.Blit(previousTexture, dest, drawStripMaterial);
-        */
-
-        // Initialize the first strip with the initial texture
-        Graphics.Blit(initialTexture, previousTexture);
-
-        Debug.Log("Screensize is: " + src.width);
-        
         for (int i = 0; i < numStrips; i++)
         {   
-            RenderTexture tempTexture = RenderTexture.GetTemporary(stripWidth * (i + 1), src.height);
-
             float offsetX = (float)i / numStrips;
 
             displacementMaterial.SetTexture("_Strip", previousTexture);
             displacementMaterial.SetTexture("_CameraView", src);
             displacementMaterial.SetFloat("_StripWidth", stripWidth);
             displacementMaterial.SetFloat("_ScreenWidth", src.width);
-            displacementMaterial.SetFloat("_ScreenHeight", src.height);
             displacementMaterial.SetFloat("_DepthFactor", depthFactor);
             displacementMaterial.SetFloat("_OffsetX", offsetX);
 
+            // Apply displacement to using the previous strip
             Graphics.Blit(previousTexture, tempTexture, displacementMaterial);
 
             drawStripMaterial.SetTexture("_Strip", tempTexture);
@@ -83,61 +116,13 @@ public class PostEffectsController : MonoBehaviour
             drawStripMaterial.SetFloat("_ScreenWidth", src.width);
             drawStripMaterial.SetFloat("_OffsetX", offsetX);
 
+            // Draw temp to dest
             Graphics.Blit(tempTexture, dest, drawStripMaterial);
 
+            // Set previous to temp
             Graphics.Blit(tempTexture, previousTexture);
-
-            if (i == numStrips - 1)
-            {
-                Graphics.Blit(tempTexture, previousTexture);
-            }
-
-
-
         }
-        /*
-        displacementMaterial.SetTexture("_Strip", previousTexture);
-        displacementMaterial.SetTexture("_CameraView", src);
-        displacementMaterial.SetFloat("_StripWidth", stripWidth);
-        displacementMaterial.SetFloat("_ScreenWidth", src.width);
-        displacementMaterial.SetFloat("_ScreenHeight", src.height);
-        displacementMaterial.SetFloat("_DepthFactor", depthFactor);
-        displacementMaterial.SetFloat("_OffsetX", 0.0f);
 
-        Debug.Log("prevTex width: " + previousTexture.width);
-        Debug.Log("tempTexture width: " + tempTexture.width);
-
-        Graphics.Blit(previousTexture, tempTexture, displacementMaterial);
-
-        //Graphics.Blit(tempTexture, dest, displacementMaterial);
-
-        drawStripMaterial.SetTexture("_Strip", tempTexture);
-        drawStripMaterial.SetFloat("_StripWidth", stripWidth);
-        drawStripMaterial.SetFloat("_ScreenWidth", src.width);
-        drawStripMaterial.SetFloat("_OffsetX", 0.0f);
-        // First strip drawing
-        Graphics.Blit(tempTexture, dest, drawStripMaterial);
-
-        Graphics.Blit(tempTexture, previousTexture);
-
-        // Do it again but with the previous slice
-        displacementMaterial.SetTexture("_Strip", previousTexture);
-        displacementMaterial.SetTexture("_CameraView", src);
-        displacementMaterial.SetFloat("_StripWidth", stripWidth);
-        displacementMaterial.SetFloat("_ScreenWidth", src.width);
-        displacementMaterial.SetFloat("_ScreenHeight", src.height);
-        displacementMaterial.SetFloat("_DepthFactor", depthFactor);
-        displacementMaterial.SetFloat("_OffsetX", 0.5f);
-
-        Graphics.Blit(previousTexture, tempTexture, displacementMaterial);
-
-        drawStripMaterial.SetTexture("_Strip", tempTexture);
-        drawStripMaterial.SetFloat("_StripWidth", stripWidth);
-        drawStripMaterial.SetFloat("_ScreenWidth", src.width);
-        drawStripMaterial.SetFloat("_OffsetX", 0.5f);
-
-        Graphics.Blit(tempTexture, dest, drawStripMaterial);
-        */
         RenderTexture.ReleaseTemporary(previousTexture);
         RenderTexture.ReleaseTemporary(tempTexture);
     }
