@@ -47,38 +47,35 @@ Shader "Custom/DepthDisplacement"
                 v2f o;
                 o.pos = UnityObjectToClipPos(v.vertex);
                 o.uv = v.texcoord;
-                o.uv.x -= _OffsetX;
                 return o;
             }
 
             fixed4 frag(v2f i) : SV_Target
-            {   
-                float aspectRatioFactor = _ScreenWidth / _StripWidth;
+            {       
+                float2 uv = i.uv;
+                float2 offsetUV = uv;
+                offsetUV.x = uv.x + _OffsetX;
+
+                // Adjust UV coordinates to sample only the part of the depth texture corresponding to the current strip
+                float stripStart = _OffsetX;
+                float stripEnd = stripStart + _StripWidth / _ScreenWidth;
                 float2 depth_uv = i.uv;
-                depth_uv.x += _CurrentStrip * 0.5;
-                //depth_uv.x += 0.5;
+                depth_uv.x = lerp(stripStart, stripEnd, depth_uv.x);
 
                 float depth = tex2D(_CameraDepthTexture, depth_uv).r;
                 
-                // Early exit for fragments outside the aspect ratio area
-                if (i.uv.x > aspectRatioFactor || i.uv.x < 0.0 || i.uv.y < 0.0 || i.uv.y > 1.0) 
-                {
-                    return fixed4(0, 0, 0, 0); // Transparent outside bounds
-                }
+                float displacement = depth * _DepthFactor;
 
-                // Adjust the UV only for sampling
-                float2 adjustedUV = i.uv;
-                adjustedUV.x = clamp(adjustedUV.x * aspectRatioFactor, 0.0, 1.0);
-                
-                // Offset UV for depth displacement
-                adjustedUV.x -= depth * _DepthFactor;
+                uv.x -= displacement;
+
+                uv.x = frac(uv.x);
 
                 // Sample the strip texture
-                fixed4 col = tex2D(_Strip, adjustedUV);
+                fixed4 col = tex2D(_Strip, uv);
                 
                 // Debugging modes
                 //col = tex2D(_CameraView, i.uv);
-                //col = tex2D(_CameraDepthTexture, i.uv);
+                //col = tex2D(_CameraDepthTexture, depth_uv);
 
                 return col;
             }
