@@ -8,6 +8,7 @@ Shader "Custom/DepthDisplacement"
         _ScreenWidth ("Screen Width", Float) = 1920
         _DepthFactor ("Depth Factor", Float) = 1.0   
         _OffsetX ("Horizontal Offset", Float) = 0.0  
+        _InvertDepth ("Invert Depth Map", Float) = -1.0 
     }
 
     SubShader
@@ -28,6 +29,7 @@ Shader "Custom/DepthDisplacement"
             float _StripWidth;
             float _ScreenWidth;
             float _OffsetX;
+            float _InvertDepth;
 
             struct v2f
             {
@@ -44,7 +46,7 @@ Shader "Custom/DepthDisplacement"
             }
 
             fixed4 frag(v2f i) : SV_Target
-            {       
+            {      
                 float2 uv = i.uv;
                 float2 offsetUV = uv;
                 offsetUV.x = uv.x + _OffsetX;
@@ -59,7 +61,7 @@ Shader "Custom/DepthDisplacement"
                 
                 float displacement = depth * _DepthFactor;
 
-                uv.x -= displacement;
+                uv.x += displacement * _InvertDepth;
                 uv.x = frac(uv.x);
 
                 fixed4 col = tex2D(_Strip, uv);

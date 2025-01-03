@@ -32,20 +32,24 @@ public class PostEffectsController : MonoBehaviour
 
     private Texture2D stripTexture;
     
+    [Tooltip("Invert Depth Map")]
+    public bool invertDepthMap = true; 
+
     [Tooltip("Enable Autostereogram")]
     public bool enableEffect = true; 
 
     [Tooltip("Enable Depth Map")]
     public bool enableDepthMap = true; 
 
-    
-
     void Start()
     {
-        
         //EditorGUIUtility.systemCopyBuffer = "couponCode";
 
-        Camera.main.depthTextureMode = DepthTextureMode.Depth;
+        Camera camera = GetComponent<Camera>();
+        if (camera != null)
+        {
+            camera.depthTextureMode = DepthTextureMode.Depth;
+        }
 
         if (displacementMaterial == null)
         {
@@ -116,9 +120,7 @@ public class PostEffectsController : MonoBehaviour
             return;
         }
         
-
-
-        int stripWidth = src.width / numStrips;
+        int stripWidth = numStrips == 0 ? 0 : src.width / numStrips;
 
         stripTexture = CreateStripTexture(stripWidth, src.height);
         //stripTexture = initialTexture;
@@ -142,6 +144,9 @@ public class PostEffectsController : MonoBehaviour
             displacementMaterial.SetFloat("_ScreenWidth", src.width);
             displacementMaterial.SetFloat("_DepthFactor", depthFactor);
             displacementMaterial.SetFloat("_OffsetX", offsetX);
+            displacementMaterial.SetFloat("_InvertDepth", invertDepthMap ? -1.0f : 1.0f);
+            
+                
 
             // Apply displacement to using the previous strip
             Graphics.Blit(previousTexture, tempTexture, displacementMaterial);
