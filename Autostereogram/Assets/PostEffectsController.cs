@@ -11,8 +11,12 @@ public class PostEffectsController : MonoBehaviour
     [Tooltip("Shader used draw strip to screen")]
     public Shader drawStripShader;
 
+    [Tooltip("Shader used draw strip to screen")]
+    public Shader drawDepthShader;
+
     private Material displacementMaterial;
     private Material drawStripMaterial;
+    private Material drawDepthMaterial;
 
     [Tooltip("The base texture for the first strip.")]
     public Texture2D initialTexture;   // The base texture for the first strip
@@ -27,29 +31,58 @@ public class PostEffectsController : MonoBehaviour
     public float depthFactor = 1.0f; // Controls displacement strength
 
     private Texture2D stripTexture;
+    
+    [Tooltip("Enable Autostereogram")]
+    public bool enableEffect = true; 
+
+    [Tooltip("Enable Depth Map")]
+    public bool enableDepthMap = true; 
+
+    
 
     void Start()
     {
+        
+        //EditorGUIUtility.systemCopyBuffer = "couponCode";
+
         Camera.main.depthTextureMode = DepthTextureMode.Depth;
 
+        if (displacementMaterial == null)
+        {
+            displacementMaterial = new Material(textureAndDisplaceShader);
+        }
+
+        if (drawStripMaterial == null)
+        {
+            drawStripMaterial = new Material(drawStripShader);
+        }
+
+        if (drawDepthMaterial == null)
+        {
+            drawDepthMaterial = new Material(drawDepthShader);
+        }
     }
 
     private Texture2D CreateStripTexture(int width, int height)
     {
-        // Create a new texture with the intended width and height
-        Texture2D texture = new Texture2D(width, height, initialTexture.format, false);
+        // Ensure the width and height are multiples of 4
+        int adjustedWidth = (width + 3) & ~3;
+        int adjustedHeight = (height + 3) & ~3;
+
+        // Create a new texture with the adjusted dimensions and a supported format
+        Texture2D texture = new Texture2D(adjustedWidth, adjustedHeight, TextureFormat.RGBA32, false);
 
         // Calculate the scale factors
-        float widthScale = (float)width / initialTexture.width;
-        float heightScale = (float)height / (initialTexture.height * numVerticalTiles);
+        float widthScale = (float)adjustedWidth / initialTexture.width;
+        float heightScale = (float)adjustedHeight / (initialTexture.height * numVerticalTiles);
 
         // Create an array to hold the colors
-        Color[] colors = new Color[width * height];
+        Color[] colors = new Color[adjustedWidth * adjustedHeight];
 
         // Loop through each pixel in the new texture
-        for (int y = 0; y < height; y++)
+        for (int y = 0; y < adjustedHeight; y++)
         {
-            for (int x = 0; x < width; x++)
+            for (int x = 0; x < adjustedWidth; x++)
             {
                 // Calculate the corresponding pixel in the initial texture
                 int initialX = Mathf.FloorToInt(x / widthScale);
@@ -59,7 +92,7 @@ public class PostEffectsController : MonoBehaviour
                 Color color = initialTexture.GetPixel(initialX, initialY);
 
                 // Set the color in the new texture
-                colors[y * width + x] = color;
+                colors[y * adjustedWidth + x] = color;
             }
         }
 
@@ -72,21 +105,23 @@ public class PostEffectsController : MonoBehaviour
 
     void OnRenderImage(RenderTexture src, RenderTexture dest)
     {   
-        // Initialize the displacement material
-        if (displacementMaterial == null)
-        {
-            displacementMaterial = new Material(textureAndDisplaceShader);
+        if(enableDepthMap){
+            Graphics.Blit(src, dest, drawDepthMaterial);
+            return;
         }
 
-        if (drawStripMaterial == null)
-        {
-            drawStripMaterial = new Material(drawStripShader);
+        if(!enableEffect)
+        {   
+            Graphics.Blit(src, dest);
+            return;
         }
+        
+
 
         int stripWidth = src.width / numStrips;
 
-        //stripTexture = CreateStripTexture(stripWidth, src.height);
-        stripTexture = initialTexture;
+        stripTexture = CreateStripTexture(stripWidth, src.height);
+        //stripTexture = initialTexture;
 
         RenderTexture previousTexture = RenderTexture.GetTemporary(stripWidth, src.height);
         RenderTexture tempTexture = RenderTexture.GetTemporary(stripWidth, src.height);
