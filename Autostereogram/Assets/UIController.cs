@@ -21,4 +21,20 @@ public class UIController : MonoBehaviour
         newCanvas.SetActive(true); // Enable the new canvas
         currentCanvas = newCanvas; // Update the reference
     }
+
+    public void setText(GameObject text, string value)
+    {
+        text.GetComponent<UnityEngine.UI.Text>().text = value;
+    }
+
+    public void activateRound(GameObject oldObject, GameObject newObject)
+    {   
+        // Deactivate old object
+        if(oldObject != null)
+        {
+            oldObject.SetActive(false);
+        }
+
+        newObject.SetActive(true);
+    }
 }
