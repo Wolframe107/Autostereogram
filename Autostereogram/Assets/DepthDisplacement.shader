@@ -9,6 +9,7 @@ Shader "Custom/DepthDisplacement"
         _DepthFactor ("Depth Factor", Float) = 1.0   
         _OffsetX ("Horizontal Offset", Float) = 0.0  
         _InvertDepth ("Invert Depth Map", Float) = -1.0 
+        _FlatMode ("Flatmode", Float) = 1.0
     }
 
     SubShader
@@ -30,6 +31,7 @@ Shader "Custom/DepthDisplacement"
             float _ScreenWidth;
             float _OffsetX;
             float _InvertDepth;
+            float _FlatMode;
 
             struct v2f
             {
@@ -59,10 +61,22 @@ Shader "Custom/DepthDisplacement"
 
                 float depth = tex2D(_CameraDepthTexture, depth_uv).r;
                 
-                float displacement = depth * _DepthFactor;
+                float displacement = 0.0;
 
-                uv.x += displacement * _InvertDepth;
+                if ( _FlatMode == 1.0 )
+                {
+                    displacement = (depth > 0.0) ? _DepthFactor : 0.0;
+                }
+                else
+                {
+                    displacement = depth * _DepthFactor;
+                }
+
+                //displacement = frac(displacement);
+
+                uv.x += displacement * _InvertDepth ;
                 uv.x = frac(uv.x);
+                //uv.x = uv.x - floor(uv.x);
 
                 fixed4 col = tex2D(_Strip, uv);
                 

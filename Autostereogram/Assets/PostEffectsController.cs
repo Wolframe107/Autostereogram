@@ -35,6 +35,9 @@ public class PostEffectsController : MonoBehaviour
     [Tooltip("Invert Depth Map")]
     public bool invertDepthMap = true; 
 
+    [Tooltip("Flat Mode")]
+    public bool flatMode = false; 
+
     [Tooltip("Enable Autostereogram")]
     public bool enableEffect = true; 
 
@@ -145,9 +148,8 @@ public class PostEffectsController : MonoBehaviour
             displacementMaterial.SetFloat("_DepthFactor", depthFactor);
             displacementMaterial.SetFloat("_OffsetX", offsetX);
             displacementMaterial.SetFloat("_InvertDepth", invertDepthMap ? -1.0f : 1.0f);
+            displacementMaterial.SetFloat("_FlatMode", flatMode ? 1.0f : -1.0f);
             
-                
-
             // Apply displacement to using the previous strip
             Graphics.Blit(previousTexture, tempTexture, displacementMaterial);
 

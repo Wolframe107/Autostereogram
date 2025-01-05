@@ -13,10 +13,14 @@ public class GameController : MonoBehaviour
     private UIController uiController;
     public GameObject gameCanvas;
     public GameObject resultCanvas;
+    public GameObject resultText;
     public int round = 1;
     public float startTime;
 
     private bool isFlat = false;
+    public GameObject[] objects_start3D;
+    public GameObject[] objects_start2D;
+
     public GameObject[] objects;
     
     //string code = "<script>function SaveTextFile(filename, text) {const blob = new Blob([text], { type: 'text/plain' });const link = document.createElement('a');link.href = URL.createObjectURL(blob);link.download = filename;link.click();URL.revokeObjectURL(link.href);}</script>";
@@ -28,7 +32,9 @@ public class GameController : MonoBehaviour
     }
 
     public void SaveFile()
-    {
+    {   
+        
+
         #if UNITY_WEBGL && !UNITY_EDITOR
         string jsFunction = $"SaveTextFile('{fileName}', `{results}`)";
         Application.ExternalEval(jsFunction);
@@ -46,13 +52,13 @@ public class GameController : MonoBehaviour
 
             isFlat = true;
 
-            GameObject temp = objects[0];
-            objects[0] = objects[objects.Length - 1];
-            objects[objects.Length - 1] = temp;
+            objects = objects_start2D;
         } 
         else
         {
             Debug.Log("Starting with 3D object");
+
+            objects = objects_start3D;
         }
 
         uiController.activateRound(null, objects[0]);
@@ -75,8 +81,11 @@ public class GameController : MonoBehaviour
         if(round > objects.Length)
         {
             Debug.Log("Finished all rounds");
+            
             gameCanvas.SetActive(false);
             resultCanvas.SetActive(true);
+            // Write results to UI
+            resultText.GetComponent<TextMeshProUGUI>().text = results;
         }
         
         else{
