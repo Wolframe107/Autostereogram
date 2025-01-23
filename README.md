@@ -14,8 +14,7 @@ Warning, the images get weird artifacts sometimes when too high displacement val
    ```bash
    git clone https://github.com/yourusername/AutostereogramGenerator.git
    ```
-2. Open the project in Unity 2022.3.36f or later.
-3. Press Play to explore the real-time autostereogram generator.
+2. Import the unity package
 
 ## Usage
 1. Run the Unity project in Play mode.
