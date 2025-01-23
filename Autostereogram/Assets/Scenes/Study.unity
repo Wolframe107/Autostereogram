@@ -1766,8 +1766,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -450, y: -33}
-  m_SizeDelta: {x: -997.711, y: -357.256}
+  m_AnchoredPosition: {x: -450, y: -34.589}
+  m_SizeDelta: {x: -997.711, y: -308.246}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &270022931
 MonoBehaviour:
@@ -2964,7 +2964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07aada8ae33c0394aa9aac457738370e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayTime: 5
+  delayTime: 45
 --- !u!114 &418419004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3284,6 +3284,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1961141241}
   - {fileID: 1433741906}
   m_Father: {fileID: 1576155996}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4503,7 +4504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07aada8ae33c0394aa9aac457738370e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayTime: 5
+  delayTime: 45
 --- !u!114 &587732855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5981,7 +5982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07aada8ae33c0394aa9aac457738370e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayTime: 5
+  delayTime: 45
 --- !u!114 &723329259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6937,7 +6938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07aada8ae33c0394aa9aac457738370e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayTime: 5
+  delayTime: 45
 --- !u!114 &771124353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7370,6 +7371,7 @@ RectTransform:
   - {fileID: 118197698}
   - {fileID: 1089898338}
   - {fileID: 1839354892}
+  - {fileID: 1768654276}
   - {fileID: 940344489}
   - {fileID: 750309242}
   m_Father: {fileID: 1585787997}
@@ -8017,7 +8019,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &940344489
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8029,8 +8031,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1768654276}
+  m_Children: []
   m_Father: {fileID: 855328127}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9521,7 +9522,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 480.99966, y: -339.41003}
+  m_AnchoredPosition: {x: 480.99966, y: -328}
   m_SizeDelta: {x: 370.7675, y: 89.9243}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1050280262
@@ -10367,7 +10368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07aada8ae33c0394aa9aac457738370e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayTime: 5
+  delayTime: 45
 --- !u!114 &1232815100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10793,7 +10794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07aada8ae33c0394aa9aac457738370e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayTime: 5
+  delayTime: 45
 --- !u!114 &1296308664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12224,7 +12225,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000016537, y: 0.000011444}
+  m_AnchoredPosition: {x: -0.000016537, y: -31}
   m_SizeDelta: {x: 939.76, y: 407.4787}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1433741907
@@ -12247,11 +12248,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "This is a study is conducted at KTH. You will first receive a brief training
-    session to explain the tasks, followed by four test cases. Please complete the
+  m_text: 'This is a study is conducted at KTH. You will first receive a brief training
+    session to explain the tasks, followed by six test cases. Please complete the
     tests to the best of your ability in a well-lit, distraction-free environment.
-    The entire session should take around 15 minutes.\r \n\r\nClick \"Continue\"
-    to start the training."
+    The entire session shouldn''t take longer than 10 minutes.
+
+    
+
+    Click
+    "Continue" to start the training.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -12659,7 +12664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07aada8ae33c0394aa9aac457738370e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayTime: 5
+  delayTime: 45
 --- !u!114 &1447835614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13414,7 +13419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07aada8ae33c0394aa9aac457738370e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayTime: 5
+  delayTime: 45
 --- !u!114 &1497962867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15584,12 +15589,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 940344489}
+  m_Father: {fileID: 855328127}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000085831, y: 0.000034809}
-  m_SizeDelta: {x: 1226.496, y: 578.996}
+  m_AnchoredPosition: {x: -12.468, y: 9.5914}
+  m_SizeDelta: {x: 1303.676, y: 649.297}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1768654277
 MonoBehaviour:
@@ -15657,10 +15662,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 43
+  m_fontSize: 47.15
   m_fontSizeBase: 43
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -15886,7 +15891,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 480.99966, y: -9.000069}
+  m_AnchoredPosition: {x: 480.99966, y: 10}
   m_SizeDelta: {x: 858.575, y: 858.57}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1815578525
@@ -16497,7 +16502,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 462.07, y: -461}
+  m_AnchoredPosition: {x: 462.07, y: -440}
   m_SizeDelta: {x: 408.62, y: 186.837}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1854844495
@@ -18312,6 +18317,140 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1940379719}
   m_CullTransparentMesh: 1
+--- !u!1 &1961141240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1961141241}
+  - component: {fileID: 1961141243}
+  - component: {fileID: 1961141242}
+  m_Layer: 5
+  m_Name: Please read
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1961141241
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961141240}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 465043364}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.000016537, y: 37}
+  m_SizeDelta: {x: 939.76, y: 407.4787}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1961141242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961141240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Please Read
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4282141927
+  m_fontColor: {r: 0.90588236, g: 0.29803923, b: 0.23529412, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 49
+  m_fontSizeBase: 49
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: -38.63037, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1961141243
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961141240}
+  m_CullTransparentMesh: 1
 --- !u!1 &2006016460
 GameObject:
   m_ObjectHideFlags: 0
@@ -18458,7 +18597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07aada8ae33c0394aa9aac457738370e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayTime: 5
+  delayTime: 45
 --- !u!114 &2032570477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19120,7 +19259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07aada8ae33c0394aa9aac457738370e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayTime: 5
+  delayTime: 45
 --- !u!114 &2076141996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19587,7 +19726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07aada8ae33c0394aa9aac457738370e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayTime: 5
+  delayTime: 45
 --- !u!114 &2115597550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20025,7 +20164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07aada8ae33c0394aa9aac457738370e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayTime: 5
+  delayTime: 45
 --- !u!114 &2129896823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20336,11 +20475,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "You will be viewing optical illusions called autostereograms. They may
-    look like random noise, but if you focus your eyes in a specific way, as if looking
-    through the monitor, a hidden 3D object will appear. It\u2019s important for
-    this study that you can see these illusions, though it may take practice if you\u2019re
-    new to them.\r\n\r\nFor tips, see <link=\"https://www.wikihow.com/View-Stereograms\"><u>this
+  m_text: "You will be viewing optical illusions called autostereograms. The image
+    to your right may look like random noise, but if you focus your eyes in a specific
+    way, as if looking through the monitor, a hidden 3D object will appear. \n\nIt\u2019s
+    important for this study that you can see these illusions, though it may take
+    practice if you\u2019re new to them.\r\n\r\nFor tips, see <link=\"https://www.wikihow.com/View-Stereograms\"><u>this
     tutorial</u></link>.\r\n\r\nOnce you see the object in the image on the right,
     click \"Continue.\""
   m_isRightToLeft: 0

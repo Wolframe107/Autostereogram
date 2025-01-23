@@ -1,4 +1,4 @@
-Shader "Custom/DrawStripShader"
+Shader "Custom/DrawStrip"
 {
     Properties
     {

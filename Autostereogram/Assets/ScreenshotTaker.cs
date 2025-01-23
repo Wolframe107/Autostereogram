@@ -30,7 +30,7 @@ public class ScreenshotTaker : MonoBehaviour
     {
         // Generate a unique file name with timestamp
         string timestamp = System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-        string filePath = System.IO.Path.Combine(screenshotFolder, $"{screenshotFileName}_{timestamp}.png");
+        string filePath = System.IO.Path.Combine(screenshotFolder, $"{screenshotFileName}_{timestamp}.jpg");
 
         // Take the screenshot
         ScreenCapture.CaptureScreenshot(filePath, 1); // "1" means original size, for 4K ensure width and height are set

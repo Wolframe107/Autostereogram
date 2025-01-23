@@ -1,4 +1,4 @@
-Shader "Custom/DepthDisplacement"
+Shader "Custom/AutostereogramShader"
 {
     Properties
     {
