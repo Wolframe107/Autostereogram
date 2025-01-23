@@ -1,6 +1,8 @@
 # Autostereogram Generator
+![Example](Autostereogram/Screenshots/git_cover_2025-01-23_16-50-20.jpg)
+This project is a Unity-based tool that lets you generate autostereograms in real-time using a custom shader.
 
-This project is a Unity-based tool that lets you generate autostereograms in real time using a custom shader.
+Warning, the images get weird artifacts sometimes when too high displacement values are chosen. Not sure why...
 
 ## Features
 - **Real-time generation**: Create and tweak autostereograms dynamically.
